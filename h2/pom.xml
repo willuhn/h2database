@@ -165,6 +165,22 @@
   </profiles>
 
   <build>
+  
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <configuration>
+            <additionalProjectFacets>
+              <jst.web>5.0</jst.web>
+            </additionalProjectFacets>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+  
     <sourceDirectory>src/main</sourceDirectory>
     <testSourceDirectory>src/test</testSourceDirectory>
     <!-- Resources do not follow maven project layout. We need to manually copy them -->

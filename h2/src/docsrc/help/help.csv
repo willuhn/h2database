@@ -605,7 +605,7 @@ CREATE AGGREGATE [ IF NOT EXISTS ] newAggregateName FOR className
 ","
 Creates a new user-defined aggregate function. The method name must be the full
 qualified class name. The class must implement the interface
-""org.h2.api.Aggregate"" or ""org.h2.api.AggregateFunction"".
+""org.h14199.api.Aggregate"" or ""org.h14199.api.AggregateFunction"".
 
 Admin rights are required to execute this command.
 This command commits an open transaction in this connection.
@@ -741,7 +741,7 @@ be the resource name (for example ""java:comp/env/jdbc/Test"").
 Admin rights are required to execute this command.
 This command commits an open transaction in this connection.
 ","
-CREATE LINKED TABLE LINK('org.h2.Driver', 'jdbc:h2:test2',
+CREATE LINKED TABLE LINK('org.h14199.Driver', 'jdbc:h2:test2',
     'sa', 'sa', 'TEST');
 CREATE LINKED TABLE LINK('', 'jdbc:h2:test2', 'sa', 'sa',
     '(SELECT * FROM TEST WHERE ID>0)');
@@ -817,7 +817,7 @@ Indexes of temporary tables are kept fully in main memory,
 unless the temporary table is created using CREATE CACHED TABLE.
 
 The ENGINE option is only required when custom table implementations are used.
-The table engine class must implement the interface ""org.h2.api.TableEngine"".
+The table engine class must implement the interface ""org.h14199.api.TableEngine"".
 Any table engine parameters are passed down in the tableEngineParams field of the CreateTableData object.
 
 Either ENGINE, or WITH (table engine params), or both may be specified. If ENGINE is not specified
@@ -845,14 +845,14 @@ CREATE TRIGGER [ IF NOT EXISTS ] newTriggerName
 { CALL triggeredClassName | AS sourceCodeString }
 ","
 Creates a new trigger.
-The trigger class must be public and implement ""org.h2.api.Trigger"".
+The trigger class must be public and implement ""org.h14199.api.Trigger"".
 Inner classes are not supported.
 The class must be available in the classpath of the database engine
 (when using the server mode, it must be in the classpath of the server).
 
-The sourceCodeString must define a single method with no parameters that returns ""org.h2.api.Trigger"".
+The sourceCodeString must define a single method with no parameters that returns ""org.h14199.api.Trigger"".
 See CREATE ALIAS for requirements regarding the compilation.
-Alternatively, javax.script.ScriptEngineManager can be used to create an instance of ""org.h2.api.Trigger"".
+Alternatively, javax.script.ScriptEngineManager can be used to create an instance of ""org.h14199.api.Trigger"".
 Currently javascript (included in every JRE) and ruby (with JRuby) are supported.
 In that case the source must begin respectively with ""//javascript"" or ""#ruby"".
 
@@ -1501,7 +1501,7 @@ SET JAVA_OBJECT_SERIALIZER
 { null | className }
 ","
 Sets the object used to serialize and deserialize java objects being stored in column of type OTHER.
-The serializer class must be public and implement ""org.h2.api.JavaObjectSerializer"".
+The serializer class must be public and implement ""org.h14199.api.JavaObjectSerializer"".
 Inner classes are not supported.
 The class must be available in the classpath of the database engine
 (when using the server mode, it must be both in the classpath of the server and the client).
@@ -3147,7 +3147,7 @@ The timestamp with time zone data type.
 Stored internally as a BCD-encoded date, nanoseconds since midnight, and time zone offset in minutes.
 If fractional seconds precision is specified it should be from 0 to 9, 6 is default.
 
-Mapped to ""org.h2.api.TimestampWithTimeZone"".
+Mapped to ""org.h14199.api.TimestampWithTimeZone"".
 ""java.time.OffsetDateTime"" and ""java.time.Instant"" are also supported on Java 8 and later versions.
 
 Values of this data type are compared by UTC values. It means that ""2010-01-01 10:00:00+01"" is greater than ""2010-01-01 11:00:00+03"".
@@ -3379,7 +3379,7 @@ Day-time intervals can store days, hours, minutes, and seconds.
 Year-month intervals are comparable only with another year-month intervals.
 Day-time intervals are comparable only with another day-time intervals.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ","
 INTERVAL DAY TO SECOND
 "
@@ -3390,7 +3390,7 @@ INTERVAL YEAR [ ( precisionInt ) ]
 Interval data type.
 If precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Period"" is also supported on Java 8 and later versions.
 ","
 INTERVAL YEAR
@@ -3402,7 +3402,7 @@ INTERVAL MONTH [ ( precisionInt ) ]
 Interval data type.
 If precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Period"" is also supported on Java 8 and later versions.
 ","
 INTERVAL MONTH
@@ -3414,7 +3414,7 @@ INTERVAL DAY [ ( precisionInt ) ]
 Interval data type.
 If precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL DAY
@@ -3426,7 +3426,7 @@ INTERVAL HOUR [ ( precisionInt ) ]
 Interval data type.
 If precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL HOUR
@@ -3438,7 +3438,7 @@ INTERVAL MINUTE [ ( precisionInt ) ]
 Interval data type.
 If precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL MINUTE
@@ -3451,7 +3451,7 @@ Interval data type.
 If precision is specified it should be from 1 to 18, 2 is default.
 If fractional seconds precision is specified it should be from 0 to 9, 6 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL SECOND
@@ -3463,7 +3463,7 @@ INTERVAL YEAR [ ( precisionInt ) ] TO MONTH
 Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Period"" is also supported on Java 8 and later versions.
 ","
 INTERVAL YEAR TO MONTH
@@ -3475,7 +3475,7 @@ INTERVAL DAY [ ( precisionInt ) ] TO HOUR
 Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL DAY TO HOUR
@@ -3487,7 +3487,7 @@ INTERVAL DAY [ ( precisionInt ) ] TO MINUTE
 Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL DAY TO MINUTE
@@ -3500,7 +3500,7 @@ Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 If fractional seconds precision is specified it should be from 0 to 9, 6 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL DAY TO SECOND
@@ -3512,7 +3512,7 @@ INTERVAL HOUR [ ( precisionInt ) ] TO MINUTE
 Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL HOUR TO MINUTE
@@ -3525,7 +3525,7 @@ Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 If fractional seconds precision is specified it should be from 0 to 9, 6 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL HOUR TO SECOND
@@ -3538,7 +3538,7 @@ Interval data type.
 If leading field precision is specified it should be from 1 to 18, 2 is default.
 If fractional seconds precision is specified it should be from 0 to 9, 6 is default.
 
-Mapped to ""org.h2.api.Interval"".
+Mapped to ""org.h14199.api.Interval"".
 ""java.time.Duration"" is also supported on Java 8 and later versions.
 ","
 INTERVAL MINUTE TO SECOND

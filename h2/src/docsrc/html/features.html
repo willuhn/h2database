@@ -459,7 +459,7 @@ The following command line will encrypt the database <code>test</code> in the us
 with the file password <code>filepwd</code> and the encryption algorithm AES:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.ChangeFileEncryption -dir ~ -db test -cipher AES -encrypt filepwd
+java -cp h2*.jar org.h14199.tools.ChangeFileEncryption -dir ~ -db test -cipher AES -encrypt filepwd
 </pre>
 
 <h2 id="database_file_locking">Database File Locking</h2>
@@ -1129,7 +1129,7 @@ Java source code is generated as well. This simplifies reproducing problems. The
 To filter the Java source code, use the <code>ConvertTraceFile</code> tool as follows:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.ConvertTraceFile
+java -cp h2*.jar org.h14199.tools.ConvertTraceFile
     -traceFile "~/test.trace.db" -javaClass "Test"
 </pre>
 <p>
@@ -1348,7 +1348,7 @@ $$;
 The following template is used to create a complete Java class:
 </p>
 <pre>
-package org.h2.dynamic;
+package org.h14199.dynamic;
 &lt; import statements before the tag @CODE; if not set:
 import java.util.*;
 import java.math.*;
@@ -1381,7 +1381,7 @@ There are a few special cases: <code>java.lang.Object</code> is mapped to
 <code>java.lang.Object</code> can not be used
 to match all SQL types (matching all SQL types is not supported). The second special case is <code>Object[]</code>:
 arrays of any class are mapped to <code>ARRAY</code>.
-Objects of type <code>org.h2.value.Value</code> (the internal value class) are passed through without conversion.
+Objects of type <code>org.h14199.value.Value</code> (the internal value class) are passed through without conversion.
 </p>
 
 <h3>Functions That Require a Connection</h3>
@@ -1409,7 +1409,7 @@ public static ResultSet query(Connection conn, String sql) throws SQLException {
     return conn.createStatement().executeQuery(sql);
 }
 
-CREATE ALIAS QUERY FOR "org.h2.samples.Function.query";
+CREATE ALIAS QUERY FOR "org.h14199.samples.Function.query";
 CALL QUERY('SELECT * FROM TEST');
 </pre>
 
@@ -1418,7 +1418,7 @@ CALL QUERY('SELECT * FROM TEST');
 A function can create a result set using the <code>SimpleResultSet</code> tool:
 </p>
 <pre>
-import org.h2.tools.SimpleResultSet;
+import org.h14199.tools.SimpleResultSet;
 ...
 public static ResultSet simpleResultSet() throws SQLException {
     SimpleResultSet rs = new SimpleResultSet();
@@ -1429,7 +1429,7 @@ public static ResultSet simpleResultSet() throws SQLException {
     return rs;
 }
 
-CREATE ALIAS SIMPLE FOR "org.h2.samples.Function.simpleResultSet";
+CREATE ALIAS SIMPLE FOR "org.h14199.samples.Function.simpleResultSet";
 CALL SIMPLE();
 </pre>
 
@@ -1462,7 +1462,7 @@ public static ResultSet getMatrix(Connection conn, Integer size)
     return rs;
 }
 
-CREATE ALIAS MATRIX FOR "org.h2.samples.Function.getMatrix";
+CREATE ALIAS MATRIX FOR "org.h14199.samples.Function.getMatrix";
 SELECT * FROM MATRIX(4) ORDER BY X, Y;
 </pre>
 
@@ -1471,17 +1471,17 @@ SELECT * FROM MATRIX(4) ORDER BY X, Y;
 <p>
 For situations where you need to expose other data-sources to the SQL engine as a table,
 there are "pluggable tables".
-For some examples, have a look at the code in <code>org.h2.test.db.TestTableEngines</code>.
+For some examples, have a look at the code in <code>org.h14199.test.db.TestTableEngines</code>.
 </p>
 <p>
-In order to create your own TableEngine, you need to implement the <code>org.h2.api.TableEngine</code> interface e.g.
+In order to create your own TableEngine, you need to implement the <code>org.h14199.api.TableEngine</code> interface e.g.
 something like this:
 </p>
 <pre>
 package acme;
-public static class MyTableEngine implements org.h2.api.TableEngine {
+public static class MyTableEngine implements org.h14199.api.TableEngine {
 
-    private static class MyTable extends org.h2.table.TableBase {
+    private static class MyTable extends org.h14199.table.TableBase {
         .. rather a lot of code here...
     }
 
@@ -1522,12 +1522,12 @@ This database supports Java triggers that are called before or after a row is up
 Triggers can be used for complex consistency checks, or to update related data in the database.
 It is also possible to use triggers to simulate materialized views.
 For a complete sample application, see <code>src/test/org/h2/samples/TriggerSample.java</code>.
-A Java trigger must implement the interface <code>org.h2.api.Trigger</code>. The trigger class must be available
+A Java trigger must implement the interface <code>org.h14199.api.Trigger</code>. The trigger class must be available
 in the classpath of the database engine (when using the server mode, it must be in the classpath
 of the server).
 </p>
 <pre>
-import org.h2.api.Trigger;
+import org.h14199.api.Trigger;
 ...
 public class TriggerSample implements Trigger {
 
@@ -1558,19 +1558,19 @@ The trigger then needs to be defined in the database:
 </p>
 <pre>
 CREATE TRIGGER INV_INS AFTER INSERT ON INVOICE
-    FOR EACH ROW CALL "org.h2.samples.TriggerSample"
+    FOR EACH ROW CALL "org.h14199.samples.TriggerSample"
 </pre>
 <p>
 The trigger can be used to veto a change by throwing a <code>SQLException</code>.
 </p>
 <p>
 As an alternative to implementing the <code>Trigger</code> interface,
-an application can extend the abstract class <code>org.h2.tools.TriggerAdapter</code>.
+an application can extend the abstract class <code>org.h14199.tools.TriggerAdapter</code>.
 This will allows to use the <code>ResultSet</code> interface within trigger implementations.
 In this case, only the <code>fire</code> method needs to be implemented:
 </p>
 <pre>
-import org.h2.tools.TriggerAdapter;
+import org.h14199.tools.TriggerAdapter;
 ...
 public class TriggerSample extends TriggerAdapter {
 
@@ -1601,7 +1601,7 @@ public static void compact(String dir, String dbName,
 }
 </pre>
 <p>
-See also the sample application <code>org.h2.samples.Compact</code>.
+See also the sample application <code>org.h14199.samples.Compact</code>.
 The commands <code>SCRIPT / RUNSCRIPT</code> can be used as well to create a backup
 of a database and re-build the database from the script.
 </p>
@@ -1677,14 +1677,14 @@ JVM argument <code>-Dh2auth.configurationFile={urlOfH2Auth.xml}</code>. Here an 
 
     &lt;!-- realm: DUMMY authenticate users named DUMMY[0-9] with a static password --&gt;
     &lt;realm name="DUMMY"
-    validatorClass="org.h2.security.auth.impl.FixedPasswordCredentialsValidator"&gt;
+    validatorClass="org.h14199.security.auth.impl.FixedPasswordCredentialsValidator"&gt;
         &lt;property name="userNamePattern" value="DUMMY[0-9]" /&gt;
         &lt;property name="password" value="mock" /&gt;
     &lt;/realm&gt;
 
     &lt;!-- realm LDAPEXAMPLE:perform credentials validation on LDAP --&gt;
     &lt;realm name="LDAPEXAMPLE"
-    validatorClass="org.h2.security.auth.impl.LdapCredentialsValidator"&gt;
+    validatorClass="org.h14199.security.auth.impl.LdapCredentialsValidator"&gt;
         &lt;property name="bindDnPattern" value="uid=%u,ou=people,dc=example,dc=com" /&gt;
         &lt;property name="host" value="127.0.0.1" /&gt;
         &lt;property name="port" value="10389" /&gt;
@@ -1693,26 +1693,26 @@ JVM argument <code>-Dh2auth.configurationFile={urlOfH2Auth.xml}</code>. Here an 
 
     &lt;!-- realm JAAS: perform credentials validation by using JAAS api --&gt;
     &lt;realm name="JAAS"
-    validatorClass="org.h2.security.auth.impl.JaasCredentialsValidator"&gt;
+    validatorClass="org.h14199.security.auth.impl.JaasCredentialsValidator"&gt;
         &lt;property name="appName" value="H2" /&gt;
     &lt;/realm&gt;
 
     &lt;!--Assign to each user role @{REALM} --&gt;
-    &lt;userToRolesMapper class="org.h2.security.auth.impl.AssignRealmNameRole"/&gt;
+    &lt;userToRolesMapper class="org.h14199.security.auth.impl.AssignRealmNameRole"/&gt;
 
     &lt;!--Assign to each user role REMOTEUSER --&gt;
-    &lt;userToRolesMapper class="org.h2.security.auth.impl.StaticRolesMapper"&gt;
+    &lt;userToRolesMapper class="org.h14199.security.auth.impl.StaticRolesMapper"&gt;
         &lt;property name="roles" value="REMOTEUSER"/&gt;
     &lt;/userToRolesMapper&gt;
 &lt;/h2Auth&gt;
 </pre>
 <p>
 Custom credentials validators must implement the interface
-<code>org.h2.api.CredentialsValidator</code>
+<code>org.h14199.api.CredentialsValidator</code>
 </p>
 <p>
 Custom criteria for role assignments must implement the interface
-<code>org.h2.api.UserToRoleMapper</code>
+<code>org.h14199.api.UserToRoleMapper</code>
 </p>
 
 <!-- [close] { --></div></td></tr></table><!-- } --><!-- analytics --></body></html>

@@ -543,7 +543,7 @@ INSERT INTO TEST
 A very simple Java profiler is built-in. To use it, use the following template:
 </p>
 <pre>
-import org.h2.util.Profiler;
+import org.h14199.util.Profiler;
 Profiler prof = new Profiler();
 prof.startCollecting();
 // .... some long running process, at least a few seconds
@@ -576,7 +576,7 @@ Ctrl+C (Windows).
 A simple profiling tool is included in H2. To use it, the application needs to be changed slightly. Example:
 </p>
 <pre>
-import org.h2.util;
+import org.h14199.util;
 ...
 Profiler profiler = new Profiler();
 profiler.startCollecting();
@@ -612,7 +612,7 @@ After running the test case, convert the <code>.trace.db</code> file using the <
 The trace file is located in the same directory as the database file.
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.ConvertTraceFile
+java -cp h2*.jar org.h14199.tools.ConvertTraceFile
     -traceFile "~/test.trace.db" -script "~/test.sql"
 </pre>
 <p>

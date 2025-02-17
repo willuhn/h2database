@@ -4,9 +4,9 @@ Implementation-URL: http://www.h2database.com
 Implementation-Version: ${version}
 Build-Jdk: ${buildJdk}
 Created-By: ${createdBy}
-Main-Class: org.h2.tools.Console
+Main-Class: org.h14199.tools.Console
 Automatic-Module-Name: com.h2database
-Bundle-Activator: org.h2.util.DbDriverActivator
+Bundle-Activator: org.h14199.util.DbDriverActivator
 Bundle-ManifestVersion: 2
 Bundle-Name: H2 Database Engine
 Bundle-SymbolicName: com.h2database
@@ -54,21 +54,21 @@ Import-Package: javax.crypto,
  org.osgi.framework;version="1.5",
  org.osgi.service.jdbc;version="1.0";resolution:=optional,
  org.slf4j;version="[1.6.0,1.7.0)";resolution:=optional
-Export-Package: org.h2;version="${version}",
- org.h2.api;version="${version}",
- org.h2.constant;version="${version}",
- org.h2.fulltext;version="${version}",
- org.h2.jdbc;version="${version}",
- org.h2.jdbcx;version="${version}",
- org.h2.tools;version="${version}",
- org.h2.util;version="${version}",
- org.h2.value;version="${version}",
- org.h2.bnf;version="${version}",
- org.h2.bnf.context;version="${version}",
- org.h2.mvstore;version="${version}",
- org.h2.mvstore.tx;version="${version}",
- org.h2.mvstore.type;version="${version}",
- org.h2.mvstore.rtree;version="${version}",
- org.h2.store.fs;version="${version}"
+Export-Package: org.h14199;version="${version}",
+ org.h14199.api;version="${version}",
+ org.h14199.constant;version="${version}",
+ org.h14199.fulltext;version="${version}",
+ org.h14199.jdbc;version="${version}",
+ org.h14199.jdbcx;version="${version}",
+ org.h14199.tools;version="${version}",
+ org.h14199.util;version="${version}",
+ org.h14199.value;version="${version}",
+ org.h14199.bnf;version="${version}",
+ org.h14199.bnf.context;version="${version}",
+ org.h14199.mvstore;version="${version}",
+ org.h14199.mvstore.tx;version="${version}",
+ org.h14199.mvstore.type;version="${version}",
+ org.h14199.mvstore.rtree;version="${version}",
+ org.h14199.store.fs;version="${version}"
 Provide-Capability: osgi.service;objectClass:List<String>=org.osgi.service.jdbc.DataSourceFactory
-Premain-Class: org.h2.util.Profiler
+Premain-Class: org.h14199.util.Profiler

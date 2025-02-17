@@ -32,8 +32,8 @@ Import-Package: javax.crypto,
  org.xml.sax;resolution:=optional,
  org.locationtech.jts.geom;version="1.15.0";resolution:=optional,
  org.locationtech.jts.io;version="1.15.0";resolution:=optional
-Export-Package: org.h2;version="${version}",
- org.h2.api;version="${version}",
- org.h2.jdbc;version="${version}",
- org.h2.jdbcx;version="${version}",
- org.h2.tools;version="${version}"
+Export-Package: org.h14199;version="${version}",
+ org.h14199.api;version="${version}",
+ org.h14199.jdbc;version="${version}",
+ org.h14199.jdbcx;version="${version}",
+ org.h14199.tools;version="${version}"

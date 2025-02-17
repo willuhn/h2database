@@ -450,7 +450,7 @@ are listed in the form
 <code>&lt;number&gt;=&lt;name&gt;|&lt;driver&gt;|&lt;url&gt;|&lt;user&gt;</code>
 using the escape character <code>\</code>.
 Example:
-<code>1=Generic H2 (Embedded)|org.h2.Driver|jdbc\:h2\:~/test|sa</code>
+<code>1=Generic H2 (Embedded)|org.h14199.Driver|jdbc\:h2\:~/test|sa</code>
 </p>
 
 <h2 id="connecting_using_jdbc">Connecting to a Database using JDBC</h2>
@@ -472,7 +472,7 @@ public class Test {
 </pre>
 <p>
 This code opens a connection (using <code>DriverManager.getConnection()</code>).
-The driver name is <code>"org.h2.Driver"</code>.
+The driver name is <code>"org.h14199.Driver"</code>.
 The database URL always needs to start with <code>jdbc:h2:</code>
 to be recognized by this database. The second parameter in the <code>getConnection()</code> call
 is the user name (<code>sa</code> for System Administrator in this example). The third parameter is the password.
@@ -498,13 +498,13 @@ A context menu of the tray icon can also be used to create a new database.
 You can also create a new local database from a command line with a Shell tool:
 </p>
 <pre>
-&gt; java -cp h2-*.jar org.h2.tools.Shell
+&gt; java -cp h2-*.jar org.h14199.tools.Shell
 
 Welcome to H2 Shell
 Exit with Ctrl+C
 [Enter]   jdbc:h2:mem:2
 URL       jdbc:h2:./path/to/database
-[Enter]   org.h2.Driver
+[Enter]   org.h14199.Driver
 Driver
 [Enter]   sa
 User      your_username
@@ -551,13 +551,13 @@ Starting the server doesn't open a database - databases are opened as soon as a 
 To start the <code>Server</code> tool from the command line with the default settings, run:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Server
+java -cp h2*.jar org.h14199.tools.Server
 </pre>
 <p>
 This will start the tool with the default options. To get the list of options and default values, run:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Server -?
+java -cp h2*.jar org.h14199.tools.Server -?
 </pre>
 <p>
 There are options available to use other ports, and start or not start parts.
@@ -568,7 +568,7 @@ There are options available to use other ports, and start or not start parts.
 To remotely connect to a database using the TCP server, use the following driver and database URL:
 </p>
 <ul>
-<li>JDBC driver class: <code>org.h2.Driver</code>
+<li>JDBC driver class: <code>org.h14199.Driver</code>
 </li><li>Database URL: <code>jdbc:h2:tcp://localhost/~/test</code>
 </li></ul>
 <p>
@@ -582,7 +582,7 @@ You can only connect using a H2 client (over JDBC).
 Servers can also be started and stopped from within an application. Sample code:
 </p>
 <pre>
-import org.h2.tools.Server;
+import org.h14199.tools.Server;
 ...
 // start the TCP Server
 Server server = Server.createTcpServer(args).start();
@@ -597,13 +597,13 @@ The TCP server can be stopped from another process.
 To stop the server from the command line, run:
 </p>
 <pre>
-java org.h2.tools.Server -tcpShutdown tcp://localhost:9092
+java org.h14199.tools.Server -tcpShutdown tcp://localhost:9092
 </pre>
 <p>
 To stop the server from a user application, use the following code:
 </p>
 <pre>
-org.h2.tools.Server.shutdownTcpServer("tcp://localhost:9094");
+org.h14199.tools.Server.shutdownTcpServer("tcp://localhost:9094");
 </pre>
 <p>
 This function will only stop the TCP server.
@@ -632,11 +632,11 @@ but please note H2 does not support all features of all databases.
 <h2 id="using_toplink">Using TopLink and Glassfish</h2>
 <p>
 To use H2 with Glassfish (or Sun AS), set the Datasource Classname to
-<code>org.h2.jdbcx.JdbcDataSource</code>. You can set this in the GUI
+<code>org.h14199.jdbcx.JdbcDataSource</code>. You can set this in the GUI
 at Application Server - Resources - JDBC - Connection Pools,
 or by editing the file <code>sun-resources.xml</code>: at element
 <code>jdbc-connection-pool</code>, set the attribute
-<code>datasource-classname</code> to <code>org.h2.jdbcx.JdbcDataSource</code>.
+<code>datasource-classname</code> to <code>org.h14199.jdbcx.JdbcDataSource</code>.
 </p>
 <p>
 The H2 database is compatible with HSQLDB and PostgreSQL.
@@ -710,7 +710,7 @@ org.jooq.util.GenerationTool /codegen.xml
 &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 &lt;configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-2.3.0.xsd">
     &lt;jdbc>
-        &lt;driver>org.h2.Driver&lt;/driver>
+        &lt;driver>org.h14199.Driver&lt;/driver>
         &lt;url>jdbc:h2:~/test&lt;/url>
         &lt;user>sa&lt;/user>
         &lt;password>&lt;/password>
@@ -787,7 +787,7 @@ add the following snippet to your web.xml file (between the
 </p>
 <pre>
 &lt;listener&gt;
-    &lt;listener-class&gt;org.h2.server.web.DbStarter&lt;/listener-class&gt;
+    &lt;listener-class&gt;org.h14199.server.web.DbStarter&lt;/listener-class&gt;
 &lt;/listener&gt;
 </pre>
 <p>
@@ -839,7 +839,7 @@ add the following configuration to your <code>web.xml</code>:
 <pre>
 &lt;servlet&gt;
     &lt;servlet-name&gt;H2Console&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.h2.server.web.WebServlet&lt;/servlet-class&gt;
+    &lt;servlet-class&gt;org.h14199.server.web.WebServlet&lt;/servlet-class&gt;
     &lt;!--
     &lt;init-param&gt;
         &lt;param-name&gt;webAllowOthers&lt;/param-name&gt;
@@ -983,8 +983,8 @@ Example:
 </p>
 <pre>
 import java.sql.*;
-import org.h2.tools.Csv;
-import org.h2.tools.SimpleResultSet;
+import org.h14199.tools.Csv;
+import org.h14199.tools.SimpleResultSet;
 public class TestCsv {
     public static void main(String[] args) throws Exception {
         SimpleResultSet rs = new SimpleResultSet();
@@ -1004,7 +1004,7 @@ Example:
 </p>
 <pre>
 import java.sql.*;
-import org.h2.tools.Csv;
+import org.h14199.tools.Csv;
 public class TestCsv {
     public static void main(String[] args) throws Exception {
         ResultSet rs = new Csv().read("data/test.csv", null, null);
@@ -1039,7 +1039,7 @@ Creating the script will also verify the checksums of the database file.
 The <code>Script</code> tool is ran as follows:
 </p>
 <pre>
-java org.h2.tools.Script -url jdbc:h2:~/test -user sa -script test.zip -options compression zip
+java org.h14199.tools.Script -url jdbc:h2:~/test -user sa -script test.zip -options compression zip
 </pre>
 <p>
 It is also possible to use the SQL command <code>SCRIPT</code> to create the backup of the database.
@@ -1053,7 +1053,7 @@ The built in FTP server could be used to retrieve the file from the server.
 To restore a database from a SQL script file, you can use the <code>RunScript</code> tool:
 </p>
 <pre>
-java org.h2.tools.RunScript -url jdbc:h2:~/test -user sa -script test.zip -options compression zip
+java org.h14199.tools.RunScript -url jdbc:h2:~/test -user sa -script test.zip -options compression zip
 </pre>
 <p>
 For more information about the options, see the SQL command <code>RUNSCRIPT</code>.
@@ -1076,7 +1076,7 @@ The resulting backup is transactionally consistent, meaning the consistency and 
 BACKUP TO 'backup.zip'
 </pre>
 <p>
-The <code>Backup</code> tool (<code>org.h2.tools.Backup</code>) can not be used to create a online backup;
+The <code>Backup</code> tool (<code>org.h14199.tools.Backup</code>) can not be used to create a online backup;
 the database must not be in use while running this program.
 </p>
 <p>
@@ -1091,7 +1091,7 @@ This database comes with a number of command line tools. To get more information
 start it with the parameter '-?', for example:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Backup -?
+java -cp h2*.jar org.h14199.tools.Backup -?
 </pre>
 <p>
 The command line tools are:
@@ -1119,7 +1119,7 @@ For details, see the Javadoc documentation.
 The Shell tool is a simple interactive command line tool. To start it, type:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Shell
+java -cp h2*.jar org.h14199.tools.Shell
 </pre>
 <p>
 You will be asked for a database URL, JDBC driver, user name, and password.
@@ -1162,7 +1162,7 @@ The steps to connect to a H2 database are:
 </li><li>Start OpenOffice Base
 </li><li>Connect to an existing database; select [JDBC]; [Next]
 </li><li>Example datasource URL: <code>jdbc:h2:~/test</code>
-</li><li>JDBC driver class: <code>org.h2.Driver</code>
+</li><li>JDBC driver class: <code>org.h14199.Driver</code>
 </li></ul>
 <p>
 Now you can access the database stored in the current users home directory.
@@ -1182,7 +1182,7 @@ Now, when creating a new database using the "Database Wizard" :
 <ul><li>Click [File], [New], [Database].
 </li><li>Select [Connect to existing database] and the select [JDBC]. Click next.
 </li><li>Example datasource URL: <code>jdbc:h2:~/test</code>
-</li><li>JDBC driver class: <code>org.h2.Driver</code>
+</li><li>JDBC driver class: <code>org.h14199.Driver</code>
 </li></ul>
 <p>
 Another solution to use H2 in NeoOffice is:
@@ -1222,7 +1222,7 @@ one using <code>DriverManager.getConnection()</code>.The build-in connection poo
 </p>
 <pre>
 import java.sql.*;
-import org.h2.jdbcx.JdbcConnectionPool;
+import org.h14199.jdbcx.JdbcConnectionPool;
 public class Test {
     public static void main(String[] args) throws Exception {
         JdbcConnectionPool cp = JdbcConnectionPool.create(
@@ -1249,7 +1249,7 @@ tables in the database.
 To initialize, call:
 </p>
 <pre>
-CREATE ALIAS IF NOT EXISTS FT_INIT FOR "org.h2.fulltext.FullText.init";
+CREATE ALIAS IF NOT EXISTS FT_INIT FOR "org.h14199.fulltext.FullText.init";
 CALL FT_INIT();
 </pre>
 <p>
@@ -1295,8 +1295,8 @@ WHERE FT.TABLE='TEST' AND T.ID=FT.KEYS[0];</code>
 You can also call the index from within a Java application:
 </p>
 <pre>
-org.h2.fulltext.FullText.search(conn, text, limit, offset);
-org.h2.fulltext.FullText.searchData(conn, text, limit, offset);
+org.h14199.fulltext.FullText.search(conn, text, limit, offset);
+org.h14199.fulltext.FullText.searchData(conn, text, limit, offset);
 </pre>
 
 <h3>Using the Apache Lucene Fulltext Search</h3>
@@ -1310,7 +1310,7 @@ jar file to the environment variables <code>H2DRIVERS</code> or
 To initialize the Lucene fulltext search in a database, call:
 </p>
 <pre>
-CREATE ALIAS IF NOT EXISTS FTL_INIT FOR "org.h2.fulltext.FullTextLucene.init";
+CREATE ALIAS IF NOT EXISTS FTL_INIT FOR "org.h14199.fulltext.FullTextLucene.init";
 CALL FTL_INIT();
 </pre>
 <p>
@@ -1356,8 +1356,8 @@ WHERE FT.TABLE='TEST' AND T.ID=FT.KEYS[0];</code>
 You can also call the index from within a Java application:
 </p>
 <pre>
-org.h2.fulltext.FullTextLucene.search(conn, text, limit, offset);
-org.h2.fulltext.FullTextLucene.searchData(conn, text, limit, offset);
+org.h14199.fulltext.FullTextLucene.search(conn, text, limit, offset);
+org.h14199.fulltext.FullTextLucene.searchData(conn, text, limit, offset);
 </pre>
 <p>
 The Lucene fulltext search supports searching in specific column only.
@@ -1366,7 +1366,7 @@ For column names starting with an underscore (_), another underscore needs to be
 Example:
 </p>
 <pre>
-CREATE ALIAS IF NOT EXISTS FTL_INIT FOR "org.h2.fulltext.FullTextLucene.init";
+CREATE ALIAS IF NOT EXISTS FTL_INIT FOR "org.h14199.fulltext.FullTextLucene.init";
 CALL FTL_INIT();
 DROP TABLE IF EXISTS TEST;
 CREATE TABLE TEST(ID INT PRIMARY KEY, FIRST_NAME VARCHAR, LAST_NAME VARCHAR);
@@ -1435,8 +1435,8 @@ Names of time zones are not stored.
 Use the following configuration to start and stop the H2 TCP server using the Spring Framework:
 </p>
 <pre>
-&lt;bean id = "org.h2.tools.Server"
-            class="org.h2.tools.Server"
+&lt;bean id = "org.h14199.tools.Server"
+            class="org.h14199.tools.Server"
             factory-method="createTcpServer"
             init-method="start"
             destroy-method="stop"&gt;
@@ -1452,7 +1452,7 @@ The <code>destroy-method</code> will help prevent exceptions on hot-redeployment
 The standard H2 jar can be dropped in as a bundle in an OSGi container.
 H2 implements the JDBC Service defined in OSGi Service Platform Release 4 Version 4.2 Enterprise Specification.
 The H2 Data Source Factory service is registered with the following properties:
-<code>OSGI_JDBC_DRIVER_CLASS=org.h2.Driver</code>
+<code>OSGI_JDBC_DRIVER_CLASS=org.h14199.Driver</code>
 and <code>OSGI_JDBC_DRIVER_NAME=H2 JDBC Driver</code>.
 The <code>OSGI_JDBC_DRIVER_VERSION</code>
 property reflects the version of the driver as is.
@@ -1471,7 +1471,7 @@ To enable JMX, append <code>;JMX=TRUE</code> to the database URL when opening th
 Various tools support JMX, one such tool is the <code>jconsole</code>.
 When opening the <code>jconsole</code>, connect to the process where the database is open
 (when using the server mode, you need to connect to the server process). Then go to the <code>MBeans</code> section.
-Under <code>org.h2</code> you will find one entry per database. The object name of the entry
+Under <code>org.h14199</code> you will find one entry per database. The object name of the entry
 is the database short name, plus the path (each colon is replaced with an underscore character).
 </p>
 <p>

@@ -17,7 +17,7 @@ Bundle-Category: utility
 Multi-Release: true
 Import-Package: javax.crypto,
  javax.crypto.spec
-Export-Package: org.h2.mvstore;version="${version}",
- org.h2.mvstore.tx;version="${version}",
- org.h2.mvstore.type;version="${version}",
- org.h2.mvstore.rtree;version="${version}"
+Export-Package: org.h14199.mvstore;version="${version}",
+ org.h14199.mvstore.tx;version="${version}",
+ org.h14199.mvstore.type;version="${version}",
+ org.h14199.mvstore.rtree;version="${version}"

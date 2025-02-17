@@ -5,7 +5,7 @@ Implementation-Version: ${version}
 Build-Jdk: ${buildJdk}
 Created-By: ${createdBy}
 Automatic-Module-Name: com.h2database.small
-Bundle-Activator: org.h2.util.DbDriverActivator
+Bundle-Activator: org.h14199.util.DbDriverActivator
 Bundle-ManifestVersion: 2
 Bundle-Name: H2 Database embedded Engine
 Bundle-SymbolicName: com.h2database.small
@@ -41,8 +41,8 @@ Import-Package: javax.crypto,
  org.osgi.framework;version="1.5",
  org.osgi.service.jdbc;version="1.0";resolution:=optional,
  org.slf4j;version="[1.6.0,1.7.0)";resolution:=optional
-Export-Package: org.h2;version="${version}",
- org.h2.api;version="${version}",
- org.h2.jdbc;version="${version}",
- org.h2.tools;version="${version}"
+Export-Package: org.h14199;version="${version}",
+ org.h14199.api;version="${version}",
+ org.h14199.jdbc;version="${version}",
+ org.h14199.tools;version="${version}"
 Provide-Capability: osgi.service;objectClass:List<String>=org.osgi.service.jdbc.DataSourceFactory

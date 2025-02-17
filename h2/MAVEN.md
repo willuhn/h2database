@@ -59,5 +59,5 @@ mvn clean test
 You can run the server like this
 
 ```sh
-mvn exec:java -Dexec.mainClass=org.h2.tools.Server  
+mvn exec:java -Dexec.mainClass=org.h14199.tools.Server  
 ```

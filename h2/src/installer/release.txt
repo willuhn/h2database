@@ -52,7 +52,7 @@ The file size should be about 300 KB:
 
 ## Changing Version Numbers
 
-Update org.h2.engine.Constants.java:
+Update org.h14199.engine.Constants.java:
     if the last build was stable (the normal case):
         set BUILD_DATE_STABLE to current BUILD_DATE
         set BUILD_ID_STABLE to current BUILD_ID

@@ -225,12 +225,12 @@
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <mainClass>org.h2.tools.Console</mainClass>
+              <mainClass>org.h14199.tools.Console</mainClass>
             </manifest>
             <manifestEntries>
               <Automatic-Module-Name>com.h2database</Automatic-Module-Name>
               <Multi-Release>true</Multi-Release>
-              <Premain-Class>org.h2.util.Profiler</Premain-Class>
+              <Premain-Class>org.h14199.util.Profiler</Premain-Class>
             </manifestEntries>
           </archive>
         </configuration>

@@ -157,7 +157,7 @@ Reference:
 <b><a href="tutorial.html#using_server">Server Mode</a></b><br />
 <code>jdbc:h2:tcp://localhost/~/test</code> user home dir<br />
 <code>jdbc:h2:tcp://localhost//data/test</code> absolute dir<br />
-<a href="tutorial.html#using_server">Server start</a>:<code>java -cp *.jar org.h2.tools.Server</code>
+<a href="tutorial.html#using_server">Server start</a>:<code>java -cp *.jar org.h14199.tools.Server</code>
 </p><p>
 <b><a href="features.html#database_url">Settings</a></b><br />
 <code>jdbc:h2:..;MODE=MySQL</code> <a href="features.html#compatibility" >compatibility (or HSQLDB,...)</a><br />
@@ -176,7 +176,7 @@ conn.close();
 
 <h2><a href="tutorial.html#connection_pool">Connection Pool</a></h2>
 <pre>
-import org.h2.jdbcx.JdbcConnectionPool;
+import org.h14199.jdbcx.JdbcConnectionPool;
 JdbcConnectionPool cp = JdbcConnectionPool.
     create("jdbc:h2:~/test", "sa", "sa");
 Connection conn = cp.getConnection();
@@ -204,7 +204,7 @@ hibernate.cfg.xml (or use the HSQLDialect):
 
 <h2><a href="tutorial.html#using_toplink">TopLink and Glassfish</a></h2>
 <p>
-Datasource class: <code>org.h2.jdbcx.JdbcDataSource</code><br />
+Datasource class: <code>org.h14199.jdbcx.JdbcDataSource</code><br />
 <code>oracle.toplink.essentials.platform.</code><br />
 <code>database.H2Platform</code>
 </p>

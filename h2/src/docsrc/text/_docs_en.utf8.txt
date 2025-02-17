@@ -182,7 +182,7 @@ Updatable Views
  By default, views are not updatable. To make a view updatable, use an "instead of" trigger as follows: 
 
 @advanced_1061_p
- Update the base table(s) within the trigger as required. For details, see the sample application <code>org.h2.samples.UpdatableView</code>. 
+ Update the base table(s) within the trigger as required. For details, see the sample application <code>org.h14199.samples.UpdatableView</code>. 
 
 @advanced_1062_h2
 Transaction Isolation
@@ -713,7 +713,7 @@ Durability
 Durability Problems
 
 @advanced_1238_p
- Complete durability means all committed transaction survive a power failure. Some databases claim they can guarantee durability, but such claims are wrong. A durability test was run against H2, HSQLDB, PostgreSQL, and Derby. All of those databases sometimes lose committed transactions. The test is included in the H2 download, see <code>org.h2.test.poweroff.Test</code>. 
+ Complete durability means all committed transaction survive a power failure. Some databases claim they can guarantee durability, but such claims are wrong. A durability test was run against H2, HSQLDB, PostgreSQL, and Derby. All of those databases sometimes lose committed transactions. The test is included in the H2 download, see <code>org.h14199.test.poweroff.Test</code>. 
 
 @advanced_1239_h3
 Ways to (Not) Achieve Durability
@@ -734,7 +734,7 @@ rws
 : in addition to <code>rwd</code>, every update to the metadata is written synchronously.
 
 @advanced_1245_p
- A test (<code>org.h2.test.poweroff.TestWrite</code>) with one of those modes achieves around 50 thousand write operations per second. Even when the operating system write buffer is disabled, the write rate is around 50 thousand operations per second. This feature does not force changes to disk because it does not flush all buffers. The test updates the same byte in the file again and again. If the hard drive was able to write at this rate, then the disk would need to make at least 50 thousand revolutions per second, or 3 million RPM (revolutions per minute). There are no such hard drives. The hard drive used for the test is about 7200 RPM, or about 120 revolutions per second. There is an overhead, so the maximum write rate must be lower than that. 
+ A test (<code>org.h14199.test.poweroff.TestWrite</code>) with one of those modes achieves around 50 thousand write operations per second. Even when the operating system write buffer is disabled, the write rate is around 50 thousand operations per second. This feature does not force changes to disk because it does not flush all buffers. The test updates the same byte in the file again and again. If the hard drive was able to write at this rate, then the disk would need to make at least 50 thousand revolutions per second, or 3 million RPM (revolutions per minute). There are no such hard drives. The hard drive used for the test is about 7200 RPM, or about 120 revolutions per second. There is an overhead, so the maximum write rate must be lower than that. 
 
 @advanced_1246_p
  Calling <code>fsync</code> flushes the buffers. There are two ways to do that in Java: 
@@ -764,7 +764,7 @@ FileChannel.force()
 Running the Durability Test
 
 @advanced_1255_p
- To test the durability / non-durability of this and other databases, you can use the test application in the package <code>org.h2.test.poweroff</code>. Two computers with network connection are required to run this test. One computer just listens, while the test application is run (and power is cut) on the other computer. The computer with the listener application opens a TCP/IP port and listens for an incoming connection. The second computer first connects to the listener, and then created the databases and starts inserting records. The connection is set to 'autocommit', which means after each inserted record a commit is performed automatically. Afterwards, the test computer notifies the listener that this record was inserted successfully. The listener computer displays the last inserted record number every 10 seconds. Now, switch off the power manually, then restart the computer, and run the application again. You will find out that in most cases, none of the databases contains all the records that the listener computer knows about. For details, please consult the source code of the listener and test application. 
+ To test the durability / non-durability of this and other databases, you can use the test application in the package <code>org.h14199.test.poweroff</code>. Two computers with network connection are required to run this test. One computer just listens, while the test application is run (and power is cut) on the other computer. The computer with the listener application opens a TCP/IP port and listens for an incoming connection. The second computer first connects to the listener, and then created the databases and starts inserting records. The connection is set to 'autocommit', which means after each inserted record a commit is performed automatically. Afterwards, the test computer notifies the listener that this record was inserted successfully. The listener computer displays the last inserted record number every 10 seconds. Now, switch off the power manually, then restart the computer, and run the application again. You will find out that in most cases, none of the databases contains all the records that the listener computer knows about. For details, please consult the source code of the listener and test application. 
 
 @advanced_1256_h2
 Using the Recover Tool
@@ -1166,7 +1166,7 @@ nioMemLZF:
  As an example, to use the the <code>nio</code> file system, use the following database URL: <code>jdbc:h2:nio:~/test</code>. 
 
 @advanced_1389_p
- To register a new file system, extend the classes <code>org.h2.store.fs.FilePath, FileBase</code>, and call the method <code>FilePath.register</code> before using it. 
+ To register a new file system, extend the classes <code>org.h14199.store.fs.FilePath, FileBase</code>, and call the method <code>FilePath.register</code> before using it. 
 
 @advanced_1390_p
  For input streams (but not for random access files), URLs may be used in addition to the registered file systems. Example: <code>jar:file:///c:/temp/example.zip!/org/example/nested.csv</code>. To read a stream from the classpath, use the prefix <code>classpath:</code>, as in <code>classpath:/org/h2/samples/newsfeed.sql</code>. 
@@ -1217,16 +1217,16 @@ dbName.index.db
  by default. Also, the temporary script will be written to the database directory instead of a temporary directory. Both defaults can be customized via 
 
 @advanced_1406_code
-org.h2.upgrade.DbUpgrade.setDeleteOldDb(boolean)
+org.h14199.upgrade.DbUpgrade.setDeleteOldDb(boolean)
 
 @advanced_1407_code
-org.h2.upgrade.DbUpgrade.setScriptInTmpDir(boolean)
+org.h14199.upgrade.DbUpgrade.setScriptInTmpDir(boolean)
 
 @advanced_1408_p
  prior opening a database connection. 
 
 @advanced_1409_p
- Since version 1.2.140 it is possible to let the old h2 classes (v 1.2.128) connect to the database. The automatic upgrade .jar file must be present, and the URL must start with <code>jdbc:h2v1_1:</code> (the JDBC driver class is <code>org.h2.upgrade.v1_1.Driver</code>). If the database should automatically connect using the old version if a database with the old format exists (without upgrade), and use the new version otherwise, then append <code>;NO_UPGRADE=TRUE</code> to the database URL. Please note the old driver did not process the system property <code>"h2.baseDir"</code> correctly, so that using this setting is not supported when upgrading. 
+ Since version 1.2.140 it is possible to let the old h2 classes (v 1.2.128) connect to the database. The automatic upgrade .jar file must be present, and the URL must start with <code>jdbc:h2v1_1:</code> (the JDBC driver class is <code>org.h14199.upgrade.v1_1.Driver</code>). If the database should automatically connect using the old version if a database with the old format exists (without upgrade), and use the new version otherwise, then append <code>;NO_UPGRADE=TRUE</code> to the database URL. Please note the old driver did not process the system property <code>"h2.baseDir"</code> correctly, so that using this setting is not supported when upgrading. 
 
 @advanced_1410_h2
 Java Objects Serialization
@@ -1460,7 +1460,7 @@ Filesystem abstraction.
 JDBC Driver
 
 @architecture_1024_p
- The JDBC driver implementation lives in <code>org.h2.jdbc, org.h2.jdbcx</code> 
+ The JDBC driver implementation lives in <code>org.h14199.jdbc, org.h14199.jdbcx</code> 
 
 @architecture_1025_h2
 Connection/session management
@@ -1475,25 +1475,25 @@ Package
 Description
 
 @architecture_1029_td
-org.h2.engine.Database
+org.h14199.engine.Database
 
 @architecture_1030_td
 the root/global class
 
 @architecture_1031_td
-org.h2.engine.SessionInterface
+org.h14199.engine.SessionInterface
 
 @architecture_1032_td
 abstracts over the differences between embedded and remote sessions
 
 @architecture_1033_td
-org.h2.engine.Session
+org.h14199.engine.Session
 
 @architecture_1034_td
 local/embedded session
 
 @architecture_1035_td
-org.h2.engine.SessionRemote
+org.h14199.engine.SessionRemote
 
 @architecture_1036_td
 remote session
@@ -1502,7 +1502,7 @@ remote session
 Parser
 
 @architecture_1038_p
- The parser lives in <code>org.h2.command.Parser</code>. It uses a straightforward recursive-descent design. 
+ The parser lives in <code>org.h14199.command.Parser</code>. It uses a straightforward recursive-descent design. 
 
 @architecture_1039_p
  See Wikipedia <a href="http://en.wikipedia.org/wiki/Recursive_descent_parser">Recursive-descent parser</a> page. 
@@ -1520,13 +1520,13 @@ Package
 Description
 
 @architecture_1044_td
-org.h2.command.ddl
+org.h14199.command.ddl
 
 @architecture_1045_td
 Commands that modify schema data structures
 
 @architecture_1046_td
-org.h2.command.dml
+org.h14199.command.dml
 
 @architecture_1047_td
 Commands that modify data
@@ -1547,13 +1547,13 @@ Package
 Description
 
 @architecture_1053_td
-org.h2.table
+org.h14199.table
 
 @architecture_1054_td
 Implementations of different kinds of tables
 
 @architecture_1055_td
-org.h2.index
+org.h14199.index
 
 @architecture_1056_td
 Implementations of different kinds of indices
@@ -1574,7 +1574,7 @@ Undo log, redo log, and transactions layer
 B-tree engine and page-based storage allocation.
 
 @architecture_1062_p
- The primary package of interest is <code>org.h2.store</code>. 
+ The primary package of interest is <code>org.h14199.store</code>. 
 
 @architecture_1063_p
  This implements a storage mechanism which allocates pages of storage (typically 2k in size) and also implements a b-tree over those pages to allow fast retrieval and update. 
@@ -1583,7 +1583,7 @@ B-tree engine and page-based storage allocation.
 Filesystem abstraction.
 
 @architecture_1065_p
- The primary class of interest is <code>org.h2.store.FileStore</code>. 
+ The primary class of interest is <code>org.h14199.store.FileStore</code>. 
 
 @architecture_1066_p
  This implements an abstraction of a random-access file. This allows the higher layers to treat in-memory vs. on-disk vs. zip-file databases the same. 
@@ -1922,16 +1922,16 @@ Generating Railroad Diagrams
  The railroad diagrams of the <a href="grammar.html">SQL grammar</a> are HTML, formatted as nested tables. The diagrams are generated as follows: 
 
 @build_1111_li
-The BNF parser (<code>org.h2.bnf.Bnf</code>) reads and parses the BNF from the file <code>help.csv</code>. 
+The BNF parser (<code>org.h14199.bnf.Bnf</code>) reads and parses the BNF from the file <code>help.csv</code>. 
 
 @build_1112_li
-The page parser (<code>org.h2.server.web.PageParser</code>) reads the template HTML file and fills in the diagrams. 
+The page parser (<code>org.h14199.server.web.PageParser</code>) reads the template HTML file and fills in the diagrams. 
 
 @build_1113_li
 The rail images (one straight, four junctions, two turns) are generated using a simple Java application. 
 
 @build_1114_p
- To generate railroad diagrams for other grammars, see the package <code>org.h2.jcr</code>. This package is used to generate the SQL-2 railroad diagrams for the JCR 2.0 specification. 
+ To generate railroad diagrams for other grammars, see the package <code>org.h14199.jcr</code>. This package is used to generate the SQL-2 railroad diagrams for the JCR 2.0 specification. 
 
 @changelog_1000_h1
 Change Log
@@ -2003,7 +2003,7 @@ PR #586: remove extra tx preparation
 PR #568: Implement MetaData.getColumns() for synonyms. 
 
 @changelog_1023_li
-Issue #581: org.h2.tools.RunScript assumes -script parameter is part of protocol 
+Issue #581: org.h14199.tools.RunScript assumes -script parameter is part of protocol 
 
 @changelog_1024_li
 Fix a deadlock in the TransactionStore 
@@ -2096,7 +2096,7 @@ Version 1.4.195 (2017-04-23)
 Lazy query execution support. 
 
 @changelog_1054_li
-Added API for handling custom data types (System property "h2.customDataTypesHandler", API org.h2.api.CustomDataTypesHandler). 
+Added API for handling custom data types (System property "h2.customDataTypesHandler", API org.h14199.api.CustomDataTypesHandler). 
 
 @changelog_1055_li
 Added support for invisible columns. 
@@ -2645,7 +2645,7 @@ MVStore: updates that affected many rows were were slow in some cases if there w
 Using "runscript" with autocommit disabled could result in a lock timeout on the internal table "SYS". 
 
 @changelog_1237_li
-Issue 603: there was a memory leak when using H2 in a web application. Apache Tomcat logged an error message: "The web application ... created a ThreadLocal with key of type [org.h2.util.DateTimeUtils$1]". 
+Issue 603: there was a memory leak when using H2 in a web application. Apache Tomcat logged an error message: "The web application ... created a ThreadLocal with key of type [org.h14199.util.DateTimeUtils$1]". 
 
 @changelog_1238_li
 When using the MVStore, running a SQL script generate by the Recover tool from a PageStore file failed with a strange error message (NullPointerException), now a clear error message is shown. 
@@ -3104,7 +3104,7 @@ jdbc:h2:tcp://localhost//data/test
 Server start
 
 @cheatSheet_1035_p
-:<code>java -cp *.jar org.h2.tools.Server</code> 
+:<code>java -cp *.jar org.h14199.tools.Server</code> 
 
 @cheatSheet_1036_a
 Settings
@@ -3140,7 +3140,7 @@ Hibernate
 TopLink and Glassfish
 
 @cheatSheet_1047_p
- Datasource class: <code>org.h2.jdbcx.JdbcDataSource</code>
+ Datasource class: <code>org.h14199.jdbcx.JdbcDataSource</code>
 
 @cheatSheet_1048_code
 oracle.toplink.essentials.platform.
@@ -3332,7 +3332,7 @@ How to Create a New Database?
 How to Connect to a Database?
 
 @faq_1035_p
- The database driver is <code>org.h2.Driver</code>, and the database URL starts with <code>jdbc:h2:</code>. To connect to a database using JDBC, use the following code: 
+ The database driver is <code>org.h14199.Driver</code>, and the database URL starts with <code>jdbc:h2:</code>. To connect to a database using JDBC, use the following code: 
 
 @faq_1036_h3
 Where are the Database Files Stored?
@@ -5243,7 +5243,7 @@ Function Data Type Mapping
  Functions that accept non-nullable parameters such as <code>int</code> will not be called if one of those parameters is <code>NULL</code>. Instead, the result of the function is <code>NULL</code>. If the function should be called if a parameter is <code>NULL</code>, you need to use <code>java.lang.Integer</code> instead. 
 
 @features_1586_p
- SQL types are mapped to Java classes and vice-versa as in the JDBC API. For details, see <a href="datatypes.html">Data Types</a>. There are a few special cases: <code>java.lang.Object</code> is mapped to <code>OTHER</code> (a serialized object). Therefore, <code>java.lang.Object</code> can not be used to match all SQL types (matching all SQL types is not supported). The second special case is <code>Object[]</code>: arrays of any class are mapped to <code>ARRAY</code>. Objects of type <code>org.h2.value.Value</code> (the internal value class) are passed through without conversion. 
+ SQL types are mapped to Java classes and vice-versa as in the JDBC API. For details, see <a href="datatypes.html">Data Types</a>. There are a few special cases: <code>java.lang.Object</code> is mapped to <code>OTHER</code> (a serialized object). Therefore, <code>java.lang.Object</code> can not be used to match all SQL types (matching all SQL types is not supported). The second special case is <code>Object[]</code>: arrays of any class are mapped to <code>ARRAY</code>. Objects of type <code>org.h14199.value.Value</code> (the internal value class) are passed through without conversion. 
 
 @features_1587_h3
 Functions That Require a Connection
@@ -5279,10 +5279,10 @@ Using a Function as a Table
 Pluggable or User-Defined Tables
 
 @features_1598_p
- For situations where you need to expose other data-sources to the SQL engine as a table, there are "pluggable tables". For some examples, have a look at the code in <code>org.h2.test.db.TestTableEngines</code>. 
+ For situations where you need to expose other data-sources to the SQL engine as a table, there are "pluggable tables". For some examples, have a look at the code in <code>org.h14199.test.db.TestTableEngines</code>. 
 
 @features_1599_p
- In order to create your own TableEngine, you need to implement the <code>org.h2.api.TableEngine</code> interface e.g. something like this: 
+ In order to create your own TableEngine, you need to implement the <code>org.h14199.api.TableEngine</code> interface e.g. something like this: 
 
 @features_1600_p
  and then create the table from SQL like this: 
@@ -5303,7 +5303,7 @@ Pluggable or User-Defined Tables
 Triggers
 
 @features_1606_p
- This database supports Java triggers that are called before or after a row is updated, inserted or deleted. Triggers can be used for complex consistency checks, or to update related data in the database. It is also possible to use triggers to simulate materialized views. For a complete sample application, see <code>src/test/org/h2/samples/TriggerSample.java</code>. A Java trigger must implement the interface <code>org.h2.api.Trigger</code>. The trigger class must be available in the classpath of the database engine (when using the server mode, it must be in the classpath of the server). 
+ This database supports Java triggers that are called before or after a row is updated, inserted or deleted. Triggers can be used for complex consistency checks, or to update related data in the database. It is also possible to use triggers to simulate materialized views. For a complete sample application, see <code>src/test/org/h2/samples/TriggerSample.java</code>. A Java trigger must implement the interface <code>org.h14199.api.Trigger</code>. The trigger class must be available in the classpath of the database engine (when using the server mode, it must be in the classpath of the server). 
 
 @features_1607_p
  The connection can be used to query or update data in other tables. The trigger then needs to be defined in the database: 
@@ -5312,7 +5312,7 @@ Triggers
  The trigger can be used to veto a change by throwing a <code>SQLException</code>. 
 
 @features_1609_p
- As an alternative to implementing the <code>Trigger</code> interface, an application can extend the abstract class <code>org.h2.tools.TriggerAdapter</code>. This will allows to use the <code>ResultSet</code> interface within trigger implementations. In this case, only the <code>fire</code> method needs to be implemented: 
+ As an alternative to implementing the <code>Trigger</code> interface, an application can extend the abstract class <code>org.h14199.tools.TriggerAdapter</code>. This will allows to use the <code>ResultSet</code> interface within trigger implementations. In this case, only the <code>fire</code> method needs to be implemented: 
 
 @features_1610_h2
 Compacting a Database
@@ -5321,7 +5321,7 @@ Compacting a Database
  Empty space in the database file re-used automatically. When closing the database, the database is automatically compacted for up to 200 milliseconds by default. To compact more, use the SQL statement SHUTDOWN COMPACT. However re-creating the database may further reduce the database size because this will re-build the indexes. Here is a sample function to do this: 
 
 @features_1612_p
- See also the sample application <code>org.h2.samples.Compact</code>. The commands <code>SCRIPT / RUNSCRIPT</code> can be used as well to create a backup of a database and re-build the database from the script. 
+ See also the sample application <code>org.h14199.samples.Compact</code>. The commands <code>SCRIPT / RUNSCRIPT</code> can be used as well to create a backup of a database and re-build the database from the script. 
 
 @features_1613_h2
 Cache Settings
@@ -9743,7 +9743,7 @@ Embedding H2 in an Application
 Add the <code>h2*.jar</code> to the classpath (H2 does not have any dependencies) 
 
 @quickstart_1006_li
-Use the JDBC driver class: <code>org.h2.Driver</code> 
+Use the JDBC driver class: <code>org.h14199.Driver</code> 
 
 @quickstart_1007_li
 The database URL <code>jdbc:h2:~/test</code> opens the database <code>test</code> in your user home directory 
@@ -11786,7 +11786,7 @@ webSSL
 : use encrypted TLS (HTTPS) connections. 
 
 @tutorial_1130_p
- In addition to those settings, the properties of the last recently used connection are listed in the form <code>&lt;number&gt;=&lt;name&gt;|&lt;driver&gt;|&lt;url&gt;|&lt;user&gt;</code> using the escape character <code>\</code>. Example: <code>1=Generic H2 (Embedded)|org.h2.Driver|jdbc\:h2\:~/test|sa</code> 
+ In addition to those settings, the properties of the last recently used connection are listed in the form <code>&lt;number&gt;=&lt;name&gt;|&lt;driver&gt;|&lt;url&gt;|&lt;user&gt;</code> using the escape character <code>\</code>. Example: <code>1=Generic H2 (Embedded)|org.h14199.Driver|jdbc\:h2\:~/test|sa</code> 
 
 @tutorial_1131_h2
 Connecting to a Database using JDBC
@@ -11795,7 +11795,7 @@ Connecting to a Database using JDBC
  To connect to a database, a Java application first needs to load the database driver, and then get a connection. A simple way to do that is using the following code: 
 
 @tutorial_1133_p
- This code first loads the driver (<code>Class.forName(...)</code>) and then opens a connection (using <code>DriverManager.getConnection()</code>). The driver name is <code>"org.h2.Driver"</code>. The database URL always needs to start with <code>jdbc:h2:</code> to be recognized by this database. The second parameter in the <code>getConnection()</code> call is the user name (<code>sa</code> for System Administrator in this example). The third parameter is the password. In this database, user names are not case sensitive, but passwords are. 
+ This code first loads the driver (<code>Class.forName(...)</code>) and then opens a connection (using <code>DriverManager.getConnection()</code>). The driver name is <code>"org.h14199.Driver"</code>. The database URL always needs to start with <code>jdbc:h2:</code> to be recognized by this database. The second parameter in the <code>getConnection()</code> call is the user name (<code>sa</code> for System Administrator in this example). The third parameter is the password. In this database, user names are not case sensitive, but passwords are. 
 
 @tutorial_1134_h2
 Creating New Databases
@@ -11831,7 +11831,7 @@ Connecting to the TCP Server
  To remotely connect to a database using the TCP server, use the following driver and database URL: 
 
 @tutorial_1145_li
-JDBC driver class: <code>org.h2.Driver</code> 
+JDBC driver class: <code>org.h14199.Driver</code> 
 
 @tutorial_1146_li
 Database URL: <code>jdbc:h2:tcp://localhost/~/test</code> 
@@ -11870,7 +11870,7 @@ Using Hibernate
 Using TopLink and Glassfish
 
 @tutorial_1158_p
- To use H2 with Glassfish (or Sun AS), set the Datasource Classname to <code>org.h2.jdbcx.JdbcDataSource</code>. You can set this in the GUI at Application Server - Resources - JDBC - Connection Pools, or by editing the file <code>sun-resources.xml</code>: at element <code>jdbc-connection-pool</code>, set the attribute <code>datasource-classname</code> to <code>org.h2.jdbcx.JdbcDataSource</code>. 
+ To use H2 with Glassfish (or Sun AS), set the Datasource Classname to <code>org.h14199.jdbcx.JdbcDataSource</code>. You can set this in the GUI at Application Server - Resources - JDBC - Connection Pools, or by editing the file <code>sun-resources.xml</code>: at element <code>jdbc-connection-pool</code>, set the attribute <code>datasource-classname</code> to <code>org.h14199.jdbcx.JdbcDataSource</code>. 
 
 @tutorial_1159_p
  The H2 database is compatible with HSQLDB and PostgreSQL. To take advantage of H2 specific features, use the <code>H2Platform</code>. The source code of this platform is included in H2 at <code>src/tools/oracle/toplink/essentials/platform/database/DatabasePlatform.java.txt</code>. You will need to copy this file to your application, and rename it to .java. To enable it, change the following setting in persistence.xml: 
@@ -12101,7 +12101,7 @@ Online Backup
  The resulting backup is transactionally consistent, meaning the consistency and atomicity rules apply. 
 
 @tutorial_1235_p
- The <code>Backup</code> tool (<code>org.h2.tools.Backup</code>) can not be used to create a online backup; the database must not be in use while running this program. 
+ The <code>Backup</code> tool (<code>org.h14199.tools.Backup</code>) can not be used to create a online backup; the database must not be in use while running this program. 
 
 @tutorial_1236_p
  Creating a backup by copying the database files while the database is running is not supported, except if the file systems support creating snapshots. With other file systems, it can't be guaranteed that the data is copied in the right order. 
@@ -12233,7 +12233,7 @@ Connect to an existing database; select [JDBC]; [Next]
 Example datasource URL: <code>jdbc:h2:~/test</code> 
 
 @tutorial_1279_li
-JDBC driver class: <code>org.h2.Driver</code> 
+JDBC driver class: <code>org.h14199.Driver</code> 
 
 @tutorial_1280_p
  Now you can access the database stored in the current users home directory. 
@@ -12269,7 +12269,7 @@ Select [Connect to existing database] and the select [JDBC]. Click next.
 Example datasource URL: <code>jdbc:h2:~/test</code> 
 
 @tutorial_1291_li
-JDBC driver class: <code>org.h2.Driver</code> 
+JDBC driver class: <code>org.h14199.Driver</code> 
 
 @tutorial_1292_p
  Another solution to use H2 in NeoOffice is: 
@@ -12395,7 +12395,7 @@ Error Code Incompatibility
 OSGi
 
 @tutorial_1333_p
- The standard H2 jar can be dropped in as a bundle in an OSGi container. H2 implements the JDBC Service defined in OSGi Service Platform Release 4 Version 4.2 Enterprise Specification. The H2 Data Source Factory service is registered with the following properties: <code>OSGI_JDBC_DRIVER_CLASS=org.h2.Driver</code> and <code>OSGI_JDBC_DRIVER_NAME=H2 JDBC Driver</code>. The <code>OSGI_JDBC_DRIVER_VERSION</code> property reflects the version of the driver as is. 
+ The standard H2 jar can be dropped in as a bundle in an OSGi container. H2 implements the JDBC Service defined in OSGi Service Platform Release 4 Version 4.2 Enterprise Specification. The H2 Data Source Factory service is registered with the following properties: <code>OSGI_JDBC_DRIVER_CLASS=org.h14199.Driver</code> and <code>OSGI_JDBC_DRIVER_NAME=H2 JDBC Driver</code>. The <code>OSGI_JDBC_DRIVER_VERSION</code> property reflects the version of the driver as is. 
 
 @tutorial_1334_p
  The following standard configuration properties are supported: <code>JDBC_USER, JDBC_PASSWORD, JDBC_DESCRIPTION, JDBC_DATASOURCE_NAME, JDBC_NETWORK_PROTOCOL, JDBC_URL, JDBC_SERVER_NAME, JDBC_PORT_NUMBER</code>. Any other standard property will be rejected. Non-standard properties will be passed on to H2 in the connection URL. 
@@ -12404,7 +12404,7 @@ OSGi
 Java Management Extension (JMX)
 
 @tutorial_1336_p
- Management over JMX is supported, but not enabled by default. To enable JMX, append <code>;JMX=TRUE</code> to the database URL when opening the database. Various tools support JMX, one such tool is the <code>jconsole</code>. When opening the <code>jconsole</code>, connect to the process where the database is open (when using the server mode, you need to connect to the server process). Then go to the <code>MBeans</code> section. Under <code>org.h2</code> you will find one entry per database. The object name of the entry is the database short name, plus the path (each colon is replaced with an underscore character). 
+ Management over JMX is supported, but not enabled by default. To enable JMX, append <code>;JMX=TRUE</code> to the database URL when opening the database. Various tools support JMX, one such tool is the <code>jconsole</code>. When opening the <code>jconsole</code>, connect to the process where the database is open (when using the server mode, you need to connect to the server process). Then go to the <code>MBeans</code> section. Under <code>org.h14199</code> you will find one entry per database. The object name of the entry is the database short name, plus the path (each colon is replaced with an underscore character). 
 
 @tutorial_1337_p
  The following attributes and operations are supported: 

@@ -216,7 +216,7 @@ FOR EACH ROW CALL "com.acme.TriggerClassName";
 </pre>
 <p>
 Update the base table(s) within the trigger as required.
-For details, see the sample application <code>org.h2.samples.UpdatableView</code>.
+For details, see the sample application <code>org.h14199.samples.UpdatableView</code>.
 </p>
 
 <h2 id="transaction_isolation">Transaction Isolation</h2>
@@ -349,7 +349,7 @@ databases will be on different servers.
 </li><li>Start a TCP server pointing to the first directory.
     You can do this using the command line:
 <pre>
-java org.h2.tools.Server
+java org.h14199.tools.Server
     -tcp -tcpPort 9101
     -baseDir server1
 </pre>
@@ -357,7 +357,7 @@ java org.h2.tools.Server
     This will simulate a server running on a second (redundant) computer.
     You can do this using the command line:
 <pre>
-java org.h2.tools.Server
+java org.h14199.tools.Server
     -tcp -tcpPort 9102
     -baseDir server2
 </pre>
@@ -365,7 +365,7 @@ java org.h2.tools.Server
     This will automatically create a new, empty database if it does not exist.
     Run the tool on the command line:
 <pre>
-java org.h2.tools.CreateCluster
+java org.h14199.tools.CreateCluster
     -urlSource jdbc:h2:tcp://localhost:9101/~/test
     -urlTarget jdbc:h2:tcp://localhost:9102/~/test
     -user sa
@@ -758,7 +758,7 @@ The Windows version of the PostgreSQL ODBC driver is available at
 After installing the ODBC driver, start the H2 Server using the command line:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Server
+java -cp h2*.jar org.h14199.tools.Server
 </pre>
 <p>
 The PG Server (PG for PostgreSQL protocol) is started as well.
@@ -766,7 +766,7 @@ By default, databases are stored in the current working directory where the serv
 Use <code>-baseDir</code> to save databases in another directory, for example the user home directory:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Server -baseDir ~
+java -cp h2*.jar org.h14199.tools.Server -baseDir ~
 </pre>
 <p>
 The PG server can be started and stopped from within a Java application as follows:
@@ -788,7 +788,7 @@ Please note only one mapping is allowed. The following will map the ODBC databas
 <code>TEST</code> to the database URL <code>jdbc:h2:~/data/test;cipher=aes</code>:
 </p>
 <pre>
-java org.h2.tools.Server -pg -key TEST "~/data/test;cipher=aes"
+java org.h14199.tools.Server -pg -key TEST "~/data/test;cipher=aes"
 </pre>
 
 <h3>ODBC Configuration</h3>
@@ -893,7 +893,7 @@ class Test
 {
     static public void Main()
     {
-        org.h2.Driver.load();
+        org.h14199.Driver.load();
         Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("SELECT 'Hello World'");
@@ -950,7 +950,7 @@ Complete durability means all committed transaction survive a power failure.
 Some databases claim they can guarantee durability, but such claims are wrong.
 A durability test was run against H2, HSQLDB, PostgreSQL, and Derby.
 All of those databases sometimes lose committed transactions.
-The test is included in the H2 download, see <code>org.h2.test.poweroff.Test</code>.
+The test is included in the H2 download, see <code>org.h14199.test.poweroff.Test</code>.
 </p>
 
 <h3>Ways to (Not) Achieve Durability</h3>
@@ -966,7 +966,7 @@ supports the modes <code>rws</code> and <code>rwd</code>:
 </li><li><code>rws</code>: in addition to <code>rwd</code>, every update to the metadata is written synchronously.</li>
 </ul>
 <p>
-A test (<code>org.h2.test.poweroff.TestWrite</code>) with one of those modes achieves
+A test (<code>org.h14199.test.poweroff.TestWrite</code>) with one of those modes achieves
 around 50 thousand write operations per second.
 Even when the operating system write buffer is disabled, the write rate is around 50 thousand operations per second.
 This feature does not force changes to disk because it does not flush all buffers.
@@ -1016,7 +1016,7 @@ In the performance comparison, commit delay was used for all databases that supp
 <h3>Running the Durability Test</h3>
 <p>
 To test the durability / non-durability of this and other databases, you can use the test application
-in the package <code>org.h2.test.poweroff</code>.
+in the package <code>org.h14199.test.poweroff</code>.
 Two computers with network connection are required to run this test.
 One computer just listens, while the test application is run (and power is cut) on the other computer.
 The computer with the listener application opens a TCP/IP port and listens for an incoming connection.
@@ -1036,7 +1036,7 @@ It also extracts the content of the transaction log and large objects (CLOB or B
 To run the tool, type on the command line:
 </p>
 <pre>
-java -cp h2*.jar org.h2.tools.Recover
+java -cp h2*.jar org.h14199.tools.Recover
 </pre>
 <p>
 For each database in the current directory, a text file will be created.
@@ -1685,7 +1685,7 @@ The settings are case sensitive.
 Example:
 </p>
 <pre>
-java -Dh2.serverCachedObjects=256 org.h2.tools.Server
+java -Dh2.serverCachedObjects=256 org.h14199.tools.Server
 </pre>
 <p>
 The current value of the settings can be read in the table
@@ -1737,7 +1737,7 @@ use the following database URL: <code>jdbc:h2:nio:~/test;MV_STORE=FALSE</code>.
 With MVStore storage engine nio file system is used by default.
 </p>
 <p>
-To register a new file system, extend the classes <code>org.h2.store.fs.FilePath, FileBase</code>,
+To register a new file system, extend the classes <code>org.h14199.store.fs.FilePath, FileBase</code>,
 and call the method <code>FilePath.register</code> before using it.
 </p>
 <p>
@@ -1786,8 +1786,8 @@ by default. Also, the temporary script will be written to the database directory
 Both defaults can be customized via
 </p>
 <ul>
-<li><code>org.h2.upgrade.DbUpgrade.setDeleteOldDb(boolean)</code>
-</li><li><code>org.h2.upgrade.DbUpgrade.setScriptInTmpDir(boolean)</code>
+<li><code>org.h14199.upgrade.DbUpgrade.setDeleteOldDb(boolean)</code>
+</li><li><code>org.h14199.upgrade.DbUpgrade.setScriptInTmpDir(boolean)</code>
 </li></ul>
 <p>
 prior opening a database connection.
@@ -1795,7 +1795,7 @@ prior opening a database connection.
 <p>
 Since version 1.2.140 it is possible to let the old h2 classes (v 1.2.128) connect to the database.
 The automatic upgrade .jar file must be present, and the URL must start with <code>jdbc:h2v1_1:</code>
-(the JDBC driver class is <code>org.h2.upgrade.v1_1.Driver</code>).
+(the JDBC driver class is <code>org.h14199.upgrade.v1_1.Driver</code>).
 If the database should automatically connect using the old version if a database with the old format exists
 (without upgrade), and use the new version otherwise, then append <code>;NO_UPGRADE=TRUE</code>
 to the database URL.

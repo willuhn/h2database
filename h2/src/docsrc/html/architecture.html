@@ -63,7 +63,7 @@ Working from the top down, the layers look like this:
 
 <h2 id="jdbc">JDBC Driver</h2>
 <p>
-The JDBC driver implementation lives in <code>org.h2.jdbc, org.h2.jdbcx</code>
+The JDBC driver implementation lives in <code>org.h14199.jdbc, org.h14199.jdbcx</code>
 </p>
 
 <h2 id="connection">Connection/session management</h2>
@@ -71,19 +71,19 @@ The JDBC driver implementation lives in <code>org.h2.jdbc, org.h2.jdbcx</code>
 The primary classes of interest are:
 <table class="main">
 <tr><th>Package</th><th>Description</th></tr>
-<tr><td>org.h2.engine.Database</td><td>the root/global class</td></tr>
-<tr><td>org.h2.engine.SessionInterface</td>
+<tr><td>org.h14199.engine.Database</td><td>the root/global class</td></tr>
+<tr><td>org.h14199.engine.SessionInterface</td>
     <td>abstracts over the differences between embedded and remote sessions</td></tr>
-<tr><td>org.h2.engine.Session</td>
+<tr><td>org.h14199.engine.Session</td>
     <td>local/embedded session</td></tr>
-<tr><td>org.h2.engine.SessionRemote</td>
+<tr><td>org.h14199.engine.SessionRemote</td>
     <td>remote session</td></tr>
 </table>
 </p>
 
 <h2 id="jdbc">Parser</h2>
 <p>
-The parser lives in <code>org.h2.command.Parser</code>. It uses a straightforward recursive-descent design.
+The parser lives in <code>org.h14199.command.Parser</code>. It uses a straightforward recursive-descent design.
 </p>
 <p>
 See Wikipedia <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">Recursive descent parser</a> page.
@@ -99,8 +99,8 @@ Then we run some optimisation steps over the command to possibly generate a more
 The primary packages of interest are:
 <table class="main">
 <tr><th>Package</th><th>Description</th></tr>
-<tr><td>org.h2.command.ddl</td><td>Commands that modify schema data structures</td></tr>
-<tr><td>org.h2.command.dml</td><td>Commands that modify data</td></tr>
+<tr><td>org.h14199.command.ddl</td><td>Commands that modify schema data structures</td></tr>
+<tr><td>org.h14199.command.dml</td><td>Commands that modify data</td></tr>
 </table>
 </p>
 
@@ -112,8 +112,8 @@ One thing to note here is that indexes are simply stored as special kinds of tab
 The primary packages of interest are:
 <table class="main">
 <tr><th>Package</th><th>Description</th></tr>
-<tr><td>org.h2.table</td><td>Implementations of different kinds of tables</td></tr>
-<tr><td>org.h2.index</td><td>Implementations of different kinds of indices</td></tr>
+<tr><td>org.h14199.table</td><td>Implementations of different kinds of tables</td></tr>
+<tr><td>org.h14199.index</td><td>Implementations of different kinds of indices</td></tr>
 </table>
 </p>
 
@@ -135,7 +135,7 @@ With the MVStore, this is no longer needed (just the transaction log).
 
 <h2 id="btree">B-tree engine and page-based storage allocation.</h2>
 <p>
-The primary package of interest is <code>org.h2.store</code>.
+The primary package of interest is <code>org.h14199.store</code>.
 </p>
 <p>
 This implements a storage mechanism which allocates pages of storage (typically 2k in size)
@@ -144,7 +144,7 @@ and also implements a b-tree over those pages to allow fast retrieval and update
 
 <h2 id="filesystem">Filesystem abstraction.</h2>
 <p>
-The primary class of interest is <code>org.h2.store.FileStore</code>.
+The primary class of interest is <code>org.h14199.store.FileStore</code>.
 </p>
 <p>
 This implements an abstraction of a random-access file.
